@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Short Link
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body class="container-fluid">
+        <center>
+            <a href="../index.html">Home</a>
+            <h1>Short Link (Link shortener)</h1><hr>
+            <input id="v" class="form-control" type="url" placeholder="Enter the link to be shortened"><br>
+            <button onclick="newFact()">Shorten</button><br><br>
+            <p>Your shortened link is: <div id="here"></div></p>
+            <script>
+                function newFact() {
+                    document.getElementById("here").textContent = "Please wait...";
+                    var v = document.getElementById("v").value;
+                    fetch('https://api.shrtco.de/v2/shorten?url=' + v)
+                    .then(response => {
+                        const data = response.json();
+                        return data;
+                    })
+                    .then(data => {
+                        console.log(data);
+                        if (data.ok) {
+                            return data.result;
+                        } else {
+                            alert(data.error);
+                            document.getElementById("here").textContent = "";
+                            document.getElementById("v").value = "";
+                        }
+                    })
+                    .then(result => {
+                        document.getElementById("here").textContent = result.short_link;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                }
+            </script>
+        </center>
+    </body>
+</html>
