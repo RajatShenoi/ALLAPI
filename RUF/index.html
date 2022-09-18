@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            RUF
+        </title>
+    </head>
+    <body>
+        <center>
+            <h1>Random Useless Facts</h1><hr>
+            <p id="fact">Please wait...</p>
+            <button onclick="newFact()">Generate New Fact</button>
+            <script>
+                fetch('https://uselessfacts.jsph.pl/random.json?language=en')
+                    .then(response => {
+                        const data = response.json();
+                        return data;
+                    })
+                    .then(data => {
+                        document.getElementById("fact").textContent = data.text;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                function newFact() {
+                    document.getElementById("fact").textContent = "Please wait...";
+                    fetch('https://uselessfacts.jsph.pl/random.json?language=en')
+                    .then(response => {
+                        const data = response.json();
+                        return data;
+                    })
+                    .then(data => {
+                        document.getElementById("fact").textContent = data.text;
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                }
+            </script>
+        </center>
+    </body>
+</html>
