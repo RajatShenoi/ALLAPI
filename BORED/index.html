@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            I'm feeling bored
+        </title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6576570439990151"
+     crossorigin="anonymous"></script>
+    </head>
+    <body class="container-fluid">
+        <center>
+            <a href="../index.html">Home</a>
+            <h1>I'm feeling bored</h1><hr>
+            <p id="challenge">Please wait...</p>
+            <button onclick="newChallenge()">New Challenge</button><br><br>
+            <p>The price of a challenge is given in a range between 0 and 1 where 0 means free.</p>
+            <script>
+                fetch('https://www.boredapi.com/api/activity/')
+                    .then(response => {
+                        const data = response.json();
+                        return data;
+                    })
+                    .then(data => {
+                        var challenge = data.activity;
+                        var type = data.type;
+                        var participants = data.participants;
+                        var price = data.price;
+                        var link = data.link;
+                        document.getElementById("challenge").innerHTML = "<strong>Challenge: </strong>" + challenge + "<br><strong>Type: </strong>" + type + "<br><strong>Participants: </strong>" + participants + "<br><strong>Price: </strong>" + price + "<br><strong>Link: </strong><a href='" + link + "'>" + link + "</a>";
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                function newChallenge() {
+                    document.getElementById("challenge").textContent = "Please wait...";
+                    fetch('https://www.boredapi.com/api/activity/')
+                    .then(response => {
+                        const data = response.json();
+                        return data;
+                    })
+                    .then(data => {
+                        var challenge = data.activity;
+                        var type = data.type;
+                        var participants = data.participants;
+                        var price = data.price;
+                        var link = data.link;
+                        document.getElementById("challenge").innerHTML = "<strong>Challenge: </strong>" + challenge + "<br><strong>Type: </strong>" + type + "<br><strong>Participants: </strong>" + participants + "<br><strong>Price: </strong>" + price + "<br><strong>Link: </strong><a href='" + link + "'>" + link + "</a>";
+                    })
+                    .catch(error => {
+                        console.log(error);
+                    });
+                }
+            </script>
+        </center>
+    </body>
+</html>
